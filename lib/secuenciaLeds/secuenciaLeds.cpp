@@ -1,3 +1,11 @@
+/**
+ * Controla una secuencia de LEDs según la dirección especificada en la estructura controlSecuencia.
+ * 
+ * @param controlador Puntero a una estructura controlSecuencia que contiene información sobre la secuencia de LEDs.
+ * @return Esta función no devuelve ningún valor explícito.
+ */
+
+
 #include "apagarLeds.h"
 #include "secuenciaLeds.h"
 

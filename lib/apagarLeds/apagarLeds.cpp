@@ -1,3 +1,9 @@
+/**
+ * Apaga todos los LEDs en la secuencia de LEDs especificada en la estructura controlSecuencia.
+ * 
+ * @param controlador Puntero a una estructura controlSecuencia que contiene información sobre la secuencia de LEDs.
+ * @return Devuelve un valor booleano indicando si todos los LEDs se apagaron correctamente.
+ */
 
 #include "apagarLeds.h"
 
