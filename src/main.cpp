@@ -1,8 +1,9 @@
 #include <Arduino.h>
-#include "botones.h"
-#include "apagarLeds.h"
-#include "secuenciaLeds.h"
+#include "botones.h" // Incluye el archivo de encabezado para las funciones relacionadas con la lectura de botones
+#include "apagarLeds.h" // Incluye el archivo de encabezado para la función de apagar LEDs
+#include "secuenciaLeds.h" // Incluye el archivo de encabezado para la función de secuencia de LEDs
 
+// Definiciones de pines para los LEDs y los botones
 const int16_t LED_VERDE = 2; 
 const int16_t LED_AMARILLO = 3; 
 const int16_t LED_ROJO = 4;
@@ -12,8 +13,8 @@ const int16_t SW2 = 7;
 const int16_t SW3 = 8;
 const int16_t SW4 = 9;
 
-
 void setup(){
+  // Configura los pines de los LEDs como salidas y los pines de los botones como entradas
   pinMode(LED_VERDE, OUTPUT);
   pinMode(LED_AMARILLO, OUTPUT);
   pinMode(LED_ROJO, OUTPUT);
@@ -22,10 +23,11 @@ void setup(){
 }
 
 void loop(){
-  // Variables para almacenar el estado anterior de los botones
+  // Variables para almacenar el estado anterior de los botones SW3 y SW4
   static bool prevSW3State = false;
   static bool prevSW4State = false;
 
+  // Variables para controlar el estado de los botones y la secuencia de LEDs
   int16_t selector1 = 0;
   int16_t selector2 = 0;
   int16_t selector3 = 0;
@@ -37,6 +39,7 @@ void loop(){
   controlSecuencia controlLeds = {arregloLeds, len, tiempo, dir};
 
   while(1){
+    // Verificar el cambio de estado para SW1 y SW2 y actualizar la dirección de la secuencia
     if (leer_boton( SW1 ) ){
       selector1 = !selector1;
       if ( selector1 ){
@@ -76,10 +79,10 @@ void loop(){
       prevSW4State = currentSW4State; // Actualizar el estado anterior
     }
 
+    // Ejecutar la secuencia de LEDs con los parámetros actualizados
     secuenciaLeds(&controlLeds); 
+
+    // Retardo basado en el tiempo de la secuencia actual
     delay(controlLeds.tiempo);
   }
 }
-
-
-
