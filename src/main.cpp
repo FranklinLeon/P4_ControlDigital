@@ -7,11 +7,14 @@
 const int16_t LED_VERDE = 2; 
 const int16_t LED_AMARILLO = 3; 
 const int16_t LED_ROJO = 4;
-const int16_t LED_AZUL = 5; 
+const int16_t LED_AZUL = 5;
+const int16_t LED_BLANCO = 10;
 const int16_t SW1 = 6;
 const int16_t SW2 = 7;
 const int16_t SW3 = 8;
 const int16_t SW4 = 9;
+
+
 
 void setup(){
   // Configura los pines de los LEDs como salidas y los pines de los botones como entradas
@@ -19,7 +22,12 @@ void setup(){
   pinMode(LED_AMARILLO, OUTPUT);
   pinMode(LED_ROJO, OUTPUT);
   pinMode(LED_AZUL, OUTPUT);
+  pinMode(LED_BLANCO, OUTPUT);
   pinMode(SW1, INPUT);
+  pinMode(SW2, INPUT);
+  pinMode(SW3, INPUT);
+  pinMode(SW4, INPUT);
+  inicio();
 }
 
 void loop(){
@@ -38,9 +46,14 @@ void loop(){
   enum sentido dir = derecha;
   controlSecuencia controlLeds = {arregloLeds, len, tiempo, dir};
 
+  
+
   while(1){
+
+    actualizar(SW1);
+    
     // Verificar el cambio de estado para SW1 y SW2 y actualizar la dirección de la secuencia
-    if (leer_boton( SW1 ) ){
+    if (estado == BUTTON_DOWN){
       selector1 = !selector1;
       if ( selector1 ){
         controlLeds.dir = izquierda;
@@ -61,7 +74,7 @@ void loop(){
       selector3 = !selector3;
       if (selector3) {
         controlLeds.tiempo = 200;
-      } else {
+      } else { 
         controlLeds.tiempo = 500; // Si se desactiva SW3, volver al tiempo por defecto
       }
       prevSW3State = currentSW3State; // Actualizar el estado anterior
